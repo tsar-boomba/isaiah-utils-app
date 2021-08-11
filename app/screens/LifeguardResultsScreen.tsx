@@ -39,7 +39,7 @@ const LifeguardResultsScreen: React.FC<Props> = ({ route, navigation }) => {
 			: (21 - (startHour + 12)) * (60 / timeToSwap);
 
 	const generateSchedule = () => {
-		const tempCardData: { time: string; guardNum: number }[] = [];
+		const cardData: { time: string; guardNum: number }[] = [];
 		let hour = startHour;
 		let minute = startMinute;
 		let meridian = amPm;
@@ -50,7 +50,7 @@ const LifeguardResultsScreen: React.FC<Props> = ({ route, navigation }) => {
 				meridian === 'AM' ? (meridian = 'PM') : (meridian = 'AM');
 			}
 
-			tempCardData.push({ time: timeFormatter(hour, minute, meridian), guardNum: guardNum });
+			cardData.push({ time: timeFormatter(hour, minute, meridian), guardNum: guardNum });
 
 			guardNum++;
 
@@ -69,7 +69,7 @@ const LifeguardResultsScreen: React.FC<Props> = ({ route, navigation }) => {
 			}
 		}
 
-		return tempCardData;
+		return cardData;
 	};
 
 	const cardData = generateSchedule();

@@ -46,11 +46,53 @@ const LifeguardScreen: React.FC<Props> = ({ navigation }) => {
 		amPm: amPm,
 	};
 
-	const storePreferences = async (value: ScheduleParams) => {
+	const savePreferences = async () => {
+		if (
+			Number.isNaN(numOfGuards) ||
+			Number.isNaN(timeToSwap) ||
+			Number.isNaN(startHour) ||
+			Number.isNaN(startMinute) ||
+			amPm === null
+		) {
+			Alert.alert(
+				'You have an invalid input',
+				'Make sure all inputs are filled and you have selected AM or PM',
+				[{ text: 'Okay' }]
+			);
+			return;
+		}
 		try {
-			const jsonValue = JSON.stringify(value);
+			const jsonValue = JSON.stringify(scheduleParams);
 			await AsyncStorage.setItem('lifeguardPreferences', jsonValue);
-		} catch (e) {
+		} catch (error) {
+			Alert.alert('Error', 'There was an error while saving your data', [{ text: 'Okay' }]);
+		}
+	};
+
+	const usePreferences = async () => {
+		try {
+			const stringValue = await AsyncStorage.getItem('lifeguardPreferences');
+			const jsonValue: ScheduleParams = await JSON.parse(stringValue);
+			if (
+				Number.isNaN(jsonValue.numOfGuards) ||
+				Number.isNaN(jsonValue.timeToSwap) ||
+				Number.isNaN(jsonValue.startHour) ||
+				Number.isNaN(jsonValue.startMinute) ||
+				jsonValue.amPm === null
+			) {
+				Alert.alert(
+					'Error',
+					'There was an error while saving your data, did you save a preference?',
+					[{ text: 'Okay' }]
+				);
+			} else {
+				setNumOfGuards(await jsonValue.numOfGuards);
+				setTimeToSwap(await jsonValue.timeToSwap);
+				setStartHour(await jsonValue.startHour);
+				setStartMinute(await jsonValue.startMinute);
+				setAmPm(await jsonValue.amPm);
+			}
+		} catch (error) {
 			Alert.alert('Error', 'There was an error while saving your data', [{ text: 'Okay' }]);
 		}
 	};
@@ -71,10 +113,7 @@ const LifeguardScreen: React.FC<Props> = ({ navigation }) => {
 			return;
 		}
 
-		Alert.alert('Perferences', 'Would you like to save your inputs for fast use later?', [
-			{ text: 'No' },
-			{ text: 'Yes', onPress: storePreferences(scheduleParams) },
-		]);
+		navigation.navigate('Lifeguard Results', scheduleParams);
 	};
 
 	return (
@@ -136,6 +175,24 @@ const LifeguardScreen: React.FC<Props> = ({ navigation }) => {
 				setState={setAmPm}
 				customStyle={false}
 			/>
+			<View>
+				<TouchableOpacity
+					style={[styles.button, { backgroundColor: dark ? colors.light : colors.dark }]}
+					onPress={() => savePreferences()}
+				>
+					<Text style={[styles.buttonText, { color: dark ? colors.dark : colors.light }]}>
+						Save Prefernces
+					</Text>
+				</TouchableOpacity>
+				<TouchableOpacity
+					style={[styles.button, { backgroundColor: dark ? colors.light : colors.dark }]}
+					onPress={() => usePreferences()}
+				>
+					<Text style={[styles.buttonText, { color: dark ? colors.dark : colors.light }]}>
+						Use Preferences
+					</Text>
+				</TouchableOpacity>
+			</View>
 			<TouchableOpacity style={styles.submitButton}>
 				<Text style={styles.submitButtonText} onPress={onSubmit}>
 					Submit
@@ -169,6 +226,14 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		fontSize: 20,
 		color: 'black',
+	},
+	button: {
+		borderRadius: 5,
+		margin: 10,
+		padding: 5,
+	},
+	buttonText: {
+		fontSize: 16,
 	},
 });
 
