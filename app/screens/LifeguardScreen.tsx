@@ -34,6 +34,7 @@ const LifeguardScreen: React.FC<Props> = ({ navigation }) => {
 	const { dark } = useContext(ThemeContext);
 	const [numOfGuards, setNumOfGuards] = useState<number | null>(null);
 	const [timeToSwap, setTimeToSwap] = useState<number | null>(null);
+	const [startTime, setStartTime] = useState<string | null>('');
 	const [startHour, setStartHour] = useState<number | null>(null);
 	const [startMinute, setStartMinute] = useState<number | null>(null);
 	const [amPm, setAmPm] = useState<string | null>(null);
@@ -44,6 +45,47 @@ const LifeguardScreen: React.FC<Props> = ({ navigation }) => {
 		startHour: startHour,
 		startMinute: startMinute,
 		amPm: amPm,
+	};
+
+	const timeInputFormat = (value: string) => {
+		const currentValue = value.length ? value.substring(value.length - 1) : value;
+		const parsedInput = Number.parseInt(currentValue);
+
+		if (startTime.length === 0) {
+			if (Number.isNaN(parsedInput)) {
+				setStartTime((prev) => prev);
+			} else if (parsedInput > 1) {
+				setStartTime((prev) => prev + '1');
+			} else {
+				setStartTime((prev) => prev + currentValue);
+			}
+		} else if (startTime.length === 1) {
+			if (Number.isNaN(parsedInput)) {
+				setStartTime((prev) => prev);
+			} else if (parsedInput > 2) {
+				setStartTime((prev) => prev + '2');
+			} else {
+				setStartTime((prev) => prev + currentValue + ':');
+			}
+		} else if (startTime.length === 3) {
+			if (Number.isNaN(parsedInput)) {
+				setStartTime((prev) => prev);
+			} else if (parsedInput > 5) {
+				setStartTime((prev) => prev + '5');
+			} else {
+				setStartTime((prev) => prev + currentValue);
+			}
+		} else if (startTime.length === 4) {
+			if (Number.isNaN(parsedInput)) {
+				setStartTime((prev) => prev);
+			} else if (parsedInput > 9) {
+				setStartTime((prev) => prev + '9');
+			} else {
+				setStartTime((prev) => prev + currentValue);
+			}
+		} else if (startTime.length > 4) {
+			setStartTime((prev) => prev);
+		}
 	};
 
 	const savePreferences = async () => {
@@ -146,6 +188,23 @@ const LifeguardScreen: React.FC<Props> = ({ navigation }) => {
 				/>
 			</View>
 			<View style={styles.inputContainer}>
+				<TextInput
+					style={[
+						styles.input,
+						{
+							backgroundColor: dark ? colors.dark : colors.light,
+							borderColor: dark ? colors.light : colors.dark,
+							color: dark ? colors.light : colors.dark,
+						},
+					]}
+					value={startTime}
+					onChangeText={(value) => timeInputFormat(value)}
+					placeholder={'Start time'}
+					placeholderTextColor={dark ? colors.light : colors.dark}
+					keyboardType={'number-pad'}
+				/>
+			</View>
+			<View style={styles.inputContainer}>
 				<Text style={[styles.inputTitle, { color: dark ? colors.light : colors.dark }]}>
 					Input the starting hour
 				</Text>
@@ -210,6 +269,13 @@ const styles = StyleSheet.create({
 	inputTitle: {
 		fontSize: 18,
 		marginLeft: 7,
+	},
+	input: {
+		marginTop: 6,
+		borderRadius: 10,
+		borderWidth: 2,
+		padding: 8,
+		width: 300,
 	},
 	container: {
 		flex: 1,
