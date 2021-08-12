@@ -5,7 +5,7 @@ import { HomeScreenNavigationProp } from '../config/types';
 
 import ThemeContext, { colors } from '../context/theme-context';
 
-import ThemeToggleButton from '../components/ThemeToggleButton';
+import ThemeToggle from '../components/ThemeToggle';
 
 type Props = {
 	navigation: HomeScreenNavigationProp;
@@ -22,7 +22,13 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
 			>
 				<Text style={styles.buttonText}>Lifeguard</Text>
 			</TouchableOpacity>
-			<ThemeToggleButton />
+			<TouchableOpacity
+				style={styles.button}
+				onPress={() => navigation.navigate('TicTacToe')}
+			>
+				<Text style={styles.buttonText}>TicTacToe</Text>
+			</TouchableOpacity>
+			<ThemeToggle />
 		</View>
 	);
 };

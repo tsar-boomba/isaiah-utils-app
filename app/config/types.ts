@@ -16,6 +16,7 @@ export type StackParamsList = {
 		startMinute: number | null;
 		amPm: string | null;
 	};
+	TicTacToe: undefined;
 };
 
 export type HomeScreenNavigationProp = StackNavigationProp<StackParamsList, 'Home'>;
@@ -28,3 +29,5 @@ export type LifeguardResultsScreenNavigationProp = StackNavigationProp<
 >;
 
 export type LifeguardResultsScreenRouteProp = RouteProp<StackParamsList, 'Lifeguard Results'>;
+
+export type TicTacToeScreenNavigationProp = StackNavigationProp<StackParamsList, 'TicTacToe'>;

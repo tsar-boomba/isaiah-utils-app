@@ -50,7 +50,7 @@ const LifeguardScreen: React.FC<Props> = ({ navigation }) => {
 	};
 
 	const timeInputFormat = (value: string) => {
-		const currentValue = value.length ? value.substring(value.length - 1) : value;
+		const currentValue = value.length ? value.substring(value.length - 1, value.length) : value;
 		const parsedInput = Number.parseInt(currentValue);
 
 		if (startTime.length === 0) {
