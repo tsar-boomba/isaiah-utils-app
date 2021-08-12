@@ -25,6 +25,7 @@ type Props = {
 type ScheduleParams = {
 	numOfGuards: number | null;
 	timeToSwap: number | null;
+	startTime: string;
 	startHour: number | null;
 	startMinute: number | null;
 	amPm: string | null;
@@ -35,15 +36,16 @@ const LifeguardScreen: React.FC<Props> = ({ navigation }) => {
 	const [numOfGuards, setNumOfGuards] = useState<number | null>(null);
 	const [timeToSwap, setTimeToSwap] = useState<number | null>(null);
 	const [startTime, setStartTime] = useState<string | null>('');
-	const [startHour, setStartHour] = useState<number | null>(null);
-	const [startMinute, setStartMinute] = useState<number | null>(null);
+	const [startHour] = useState<number | null>(null);
+	const [startMinute] = useState<number | null>(null);
 	const [amPm, setAmPm] = useState<string | null>(null);
 
 	const scheduleParams: ScheduleParams = {
 		numOfGuards: numOfGuards,
 		timeToSwap: timeToSwap,
-		startHour: startHour,
-		startMinute: startMinute,
+		startTime: startTime,
+		startHour: Number.parseInt(startTime.substring(0, 2)),
+		startMinute: Number.parseInt(startTime.substring(3, 5)),
 		amPm: amPm,
 	};
 
@@ -57,7 +59,7 @@ const LifeguardScreen: React.FC<Props> = ({ navigation }) => {
 			} else if (parsedInput > 1) {
 				setStartTime((prev) => prev + '1');
 			} else {
-				setStartTime((prev) => prev + currentValue);
+				setStartTime((prev) => prev + parsedInput);
 			}
 		} else if (startTime.length === 1) {
 			if (Number.isNaN(parsedInput)) {
@@ -65,7 +67,7 @@ const LifeguardScreen: React.FC<Props> = ({ navigation }) => {
 			} else if (parsedInput > 2) {
 				setStartTime((prev) => prev + '2');
 			} else {
-				setStartTime((prev) => prev + currentValue + ':');
+				setStartTime((prev) => prev + parsedInput + ':');
 			}
 		} else if (startTime.length === 3) {
 			if (Number.isNaN(parsedInput)) {
@@ -73,7 +75,7 @@ const LifeguardScreen: React.FC<Props> = ({ navigation }) => {
 			} else if (parsedInput > 5) {
 				setStartTime((prev) => prev + '5');
 			} else {
-				setStartTime((prev) => prev + currentValue);
+				setStartTime((prev) => prev + parsedInput);
 			}
 		} else if (startTime.length === 4) {
 			if (Number.isNaN(parsedInput)) {
@@ -81,7 +83,7 @@ const LifeguardScreen: React.FC<Props> = ({ navigation }) => {
 			} else if (parsedInput > 9) {
 				setStartTime((prev) => prev + '9');
 			} else {
-				setStartTime((prev) => prev + currentValue);
+				setStartTime((prev) => prev + parsedInput);
 			}
 		} else if (startTime.length > 4) {
 			setStartTime((prev) => prev);
@@ -92,8 +94,7 @@ const LifeguardScreen: React.FC<Props> = ({ navigation }) => {
 		if (
 			Number.isNaN(numOfGuards) ||
 			Number.isNaN(timeToSwap) ||
-			Number.isNaN(startHour) ||
-			Number.isNaN(startMinute) ||
+			startTime.length < 5 ||
 			amPm === null
 		) {
 			Alert.alert(
@@ -128,11 +129,10 @@ const LifeguardScreen: React.FC<Props> = ({ navigation }) => {
 					[{ text: 'Okay' }]
 				);
 			} else {
-				setNumOfGuards(await jsonValue.numOfGuards);
-				setTimeToSwap(await jsonValue.timeToSwap);
-				setStartHour(await jsonValue.startHour);
-				setStartMinute(await jsonValue.startMinute);
-				setAmPm(await jsonValue.amPm);
+				setNumOfGuards(jsonValue.numOfGuards);
+				setTimeToSwap(jsonValue.timeToSwap);
+				setStartTime(jsonValue.startTime);
+				setAmPm(jsonValue.amPm);
 			}
 		} catch (error) {
 			Alert.alert('Error', 'There was an error while saving your data', [{ text: 'Okay' }]);
@@ -143,8 +143,7 @@ const LifeguardScreen: React.FC<Props> = ({ navigation }) => {
 		if (
 			Number.isNaN(numOfGuards) ||
 			Number.isNaN(timeToSwap) ||
-			Number.isNaN(startHour) ||
-			Number.isNaN(startMinute) ||
+			startTime.length < 5 ||
 			amPm === null
 		) {
 			Alert.alert(
@@ -188,6 +187,9 @@ const LifeguardScreen: React.FC<Props> = ({ navigation }) => {
 				/>
 			</View>
 			<View style={styles.inputContainer}>
+				<Text style={[styles.inputTitle, { color: dark ? colors.light : colors.dark }]}>
+					Input the starting time
+				</Text>
 				<TextInput
 					style={[
 						styles.input,
@@ -204,30 +206,17 @@ const LifeguardScreen: React.FC<Props> = ({ navigation }) => {
 					keyboardType={'number-pad'}
 				/>
 			</View>
-			<View style={styles.inputContainer}>
-				<Text style={[styles.inputTitle, { color: dark ? colors.light : colors.dark }]}>
-					Input the starting hour
+			<TouchableOpacity
+				style={[styles.button, { backgroundColor: dark ? colors.light : colors.dark }]}
+				onPress={() => setStartTime('')}
+			>
+				<Text style={[styles.buttonText, { color: dark ? colors.dark : colors.light }]}>
+					Clear Start Time
 				</Text>
-				<NumberFormat
-					customInput={NumberInput}
-					value={startHour}
-					limit={12}
-					setState={setStartHour}
-					placeholder={'Starting hour'}
-				/>
-			</View>
-			<View style={styles.inputContainer}>
-				<Text style={[styles.inputTitle, { color: dark ? colors.light : colors.dark }]}>
-					Input the starting minute
-				</Text>
-				<NumberFormat
-					customInput={NumberInput}
-					value={startMinute}
-					limit={59}
-					setState={setStartMinute}
-					placeholder={'Starting hour'}
-				/>
-			</View>
+			</TouchableOpacity>
+			<Text style={[styles.inputTitle, { color: dark ? colors.light : colors.dark }]}>
+				Pick AM or PM for start time
+			</Text>
 			<RadioButtonContainer
 				values={['AM', 'PM']}
 				state={amPm}

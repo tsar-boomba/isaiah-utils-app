@@ -14,14 +14,13 @@ type Props = {
 	route: LifeguardResultsScreenRouteProp;
 };
 
-type myType = number | string | null;
+type StateType = number | string | null;
 
 const LifeguardResultsScreen: React.FC<Props> = ({ route, navigation }) => {
 	const { dark } = useContext(ThemeContext);
 	const { numOfGuards, timeToSwap, startHour, startMinute, amPm } = route.params;
-	const [isLoading, setIsLoading] = useState(true);
 
-	const timeFormatter = (hour: myType, minute: myType, amPm: myType) => {
+	const timeFormatter = (hour: StateType, minute: StateType, amPm: StateType) => {
 		let strHour = JSON.stringify(hour);
 		let strMinute = JSON.stringify(minute);
 
@@ -32,29 +31,37 @@ const LifeguardResultsScreen: React.FC<Props> = ({ route, navigation }) => {
 		return strHour + ':' + strMinute + ' ' + amPm;
 	};
 
+	let rotationsStartHour = startHour;
+
+	if (startHour === 12) {
+		rotationsStartHour = 0;
+	}
+
 	const rotations =
 		amPm === 'AM'
 			? //I'm assuming end time is 9pm (21), could be use input later
-			  (21 - startHour) * (60 / timeToSwap)
-			: (21 - (startHour + 12)) * (60 / timeToSwap);
+			  (21 - rotationsStartHour) * (60 / timeToSwap)
+			: (21 - (rotationsStartHour + 12)) * (60 / timeToSwap);
 
 	const generateSchedule = () => {
-		const cardData: { time: string; guardNum: number }[] = [];
+		const tempCardData: { time: string; guardNum: number }[] = [];
 		let hour = startHour;
 		let minute = startMinute;
 		let meridian = amPm;
 		let guardNum = 1;
 
 		for (let index = 0; index < rotations; index++) {
-			if (hour === 12 && minute < timeToSwap) {
-				meridian === 'AM' ? (meridian = 'PM') : (meridian = 'AM');
+			if (index > 0) {
+				if (hour === 12 && minute < timeToSwap) {
+					meridian === 'AM' ? (meridian = 'PM') : (meridian = 'AM');
+				}
 			}
 
-			cardData.push({ time: timeFormatter(hour, minute, meridian), guardNum: guardNum });
+			tempCardData.push({ time: timeFormatter(hour, minute, meridian), guardNum: guardNum });
 
 			guardNum++;
-
 			minute += timeToSwap;
+
 			if (minute > 59) {
 				minute -= 60;
 				hour += 1;
@@ -69,7 +76,7 @@ const LifeguardResultsScreen: React.FC<Props> = ({ route, navigation }) => {
 			}
 		}
 
-		return cardData;
+		return tempCardData;
 	};
 
 	const cardData = generateSchedule();
