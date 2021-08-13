@@ -8,6 +8,7 @@ import HomeScreen from './screens/HomeScreen';
 import LifeguardScreen from './screens/LifeguardScreen';
 import LifeguardResultsScreen from './screens/LifeguardResultsScreen';
 import TicTacToeScreen from './screens/TicTacToeScreen';
+import Connect4Screen from './screens/Connect4Screen';
 
 import { StackParamsList } from './config/types';
 
@@ -36,6 +37,11 @@ const Routes = () => {
 					<Stack.Screen
 						name='TicTacToe'
 						component={TicTacToeScreen}
+						options={{ headerShown: false }}
+					/>
+					<Stack.Screen
+						name='Connect4'
+						component={Connect4Screen}
 						options={{ headerShown: false }}
 					/>
 				</Stack.Navigator>

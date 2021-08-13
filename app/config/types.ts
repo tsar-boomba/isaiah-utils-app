@@ -17,6 +17,7 @@ export type StackParamsList = {
 		amPm: string | null;
 	};
 	TicTacToe: undefined;
+	Connect4: undefined;
 };
 
 export type HomeScreenNavigationProp = StackNavigationProp<StackParamsList, 'Home'>;
@@ -31,3 +32,5 @@ export type LifeguardResultsScreenNavigationProp = StackNavigationProp<
 export type LifeguardResultsScreenRouteProp = RouteProp<StackParamsList, 'Lifeguard Results'>;
 
 export type TicTacToeScreenNavigationProp = StackNavigationProp<StackParamsList, 'TicTacToe'>;
+
+export type Connect4ScreenNavigationProp = StackNavigationProp<StackParamsList, 'Connect4'>;

@@ -28,6 +28,9 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
 			>
 				<Text style={styles.buttonText}>TicTacToe</Text>
 			</TouchableOpacity>
+			<TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Connect4')}>
+				<Text style={styles.buttonText}>Connect 4</Text>
+			</TouchableOpacity>
 			<ThemeToggle />
 		</View>
 	);
