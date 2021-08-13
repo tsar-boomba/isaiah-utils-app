@@ -14,29 +14,55 @@ const TicTacToeScreen: React.FC<Props> = ({ navigation }) => {
 	const { dark } = useContext(ThemeContext);
 	//true means x places
 	const [turn, setTurn] = useState(true);
-	const [disabled, setDisabled] = useState(false);
-	const [board, setBoard] = useState(['', '', '', '', '', '', '', '', '']);
+	const [turnNum, setTurnNum] = useState(1);
+	const [reset, setReset] = useState(false);
+	const [gameover, setGameover] = useState(false);
+	const emptyBoard = [
+		{ value: '', won: false },
+		{ value: '', won: false },
+		{ value: '', won: false },
+		{ value: '', won: false },
+		{ value: '', won: false },
+		{ value: '', won: false },
+		{ value: '', won: false },
+		{ value: '', won: false },
+		{ value: '', won: false },
+	];
+	const [board, setBoard] = useState(emptyBoard);
 
 	return (
 		<View style={[styles.container, { backgroundColor: dark ? colors.dark : colors.light }]}>
+			<Text style={[styles.resetButtonText, { color: dark ? colors.light : colors.dark }]}>
+				Turn: {turnNum}
+			</Text>
 			<View style={styles.gameBoard}>
 				{board.map((sqaure, index) => (
 					<TTTSquare
-						state={[turn, setTurn, board, setBoard]}
+						state={[
+							turn,
+							setTurn,
+							turnNum,
+							setTurnNum,
+							board,
+							setBoard,
+							reset,
+							setReset,
+							gameover,
+							setGameover,
+						]}
 						value={sqaure}
 						num={index}
-						globalDisabled={disabled}
 						key={index}
 					/>
 				))}
 			</View>
 			<Pressable
 				style={[styles.resetButton, { backgroundColor: dark ? colors.light : colors.dark }]}
-				onPress={async () => {
-					setBoard(['', '', '', '', '', '', '', '', '']);
-					setDisabled(true);
-					setDisabled(false);
+				onPress={() => {
+					setReset(true);
+					setBoard(emptyBoard);
 					setTurn(true);
+					setTurnNum(1);
 				}}
 			>
 				<Text
