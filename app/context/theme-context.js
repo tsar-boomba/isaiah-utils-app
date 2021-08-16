@@ -3,6 +3,7 @@ import React, { useState, useLayoutEffect } from 'react';
 export const colors = {
 	primary: '#FC2E20',
 	secondary: '#010100',
+	liked: '#ff006a',
 	dark: '#121212',
 	light: '#eaeaea',
 };

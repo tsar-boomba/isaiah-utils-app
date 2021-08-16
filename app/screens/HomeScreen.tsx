@@ -31,6 +31,9 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
 			<TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Connect4')}>
 				<Text style={styles.buttonText}>Connect 4</Text>
 			</TouchableOpacity>
+			<TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Shop')}>
+				<Text style={styles.buttonText}>Shop</Text>
+			</TouchableOpacity>
 			<ThemeToggle />
 		</View>
 	);

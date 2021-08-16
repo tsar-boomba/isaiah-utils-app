@@ -9,6 +9,8 @@ import LifeguardScreen from './screens/LifeguardScreen';
 import LifeguardResultsScreen from './screens/LifeguardResultsScreen';
 import TicTacToeScreen from './screens/TicTacToeScreen';
 import Connect4Screen from './screens/Connect4Screen';
+import ShopRoutes from './screens/Shop/ShopRoutes';
+import ItemScreen from './screens/Shop/ItemScreen';
 
 import { StackParamsList } from './config/types';
 
@@ -18,31 +20,17 @@ const Routes = () => {
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
 			<NavigationContainer>
-				<Stack.Navigator>
+				<Stack.Navigator screenOptions={{ headerShown: false }}>
+					<Stack.Screen name='Home' component={HomeScreen} />
+					<Stack.Screen name='Lifeguard' component={LifeguardScreen} />
+					<Stack.Screen name='Lifeguard Results' component={LifeguardResultsScreen} />
+					<Stack.Screen name='TicTacToe' component={TicTacToeScreen} />
+					<Stack.Screen name='Connect4' component={Connect4Screen} />
+					<Stack.Screen name='Shop' component={ShopRoutes} />
 					<Stack.Screen
-						name='Home'
-						component={HomeScreen}
-						options={{ headerShown: false }}
-					/>
-					<Stack.Screen
-						name='Lifeguard'
-						component={LifeguardScreen}
-						options={{ headerShown: false }}
-					/>
-					<Stack.Screen
-						name='Lifeguard Results'
-						component={LifeguardResultsScreen}
-						options={{ headerShown: false }}
-					/>
-					<Stack.Screen
-						name='TicTacToe'
-						component={TicTacToeScreen}
-						options={{ headerShown: false }}
-					/>
-					<Stack.Screen
-						name='Connect4'
-						component={Connect4Screen}
-						options={{ headerShown: false }}
+						name='Item'
+						component={ItemScreen}
+						options={{ headerShown: true }}
 					/>
 				</Stack.Navigator>
 			</NavigationContainer>

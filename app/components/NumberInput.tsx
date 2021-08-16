@@ -15,12 +15,20 @@ const NumberInput: React.FC<Props> = ({ value, limit, setState, placeholder }) =
 
 	const checkLimit = (value: string, limit: number) => {
 		const parsedInput = Number.parseInt(value);
-		if (Number.isNaN(parsedInput)) {
-			setState('');
-		} else if (parsedInput > limit) {
-			setState(limit);
+		if (limit > 0) {
+			if (Number.isNaN(parsedInput)) {
+				setState('');
+			} else if (parsedInput > limit) {
+				setState(limit);
+			} else {
+				setState(parsedInput);
+			}
 		} else {
-			setState(parsedInput);
+			if (Number.isNaN(parsedInput)) {
+				setState('');
+			} else {
+				setState(parsedInput);
+			}
 		}
 	};
 

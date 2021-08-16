@@ -1,0 +1,182 @@
+[
+	{
+		"name": "Grey Shorts",
+		"price": 29.99,
+		"description": "Nice grey shorts for exercising and casual wear.",
+		"sizes": [
+			{
+				"name": "XS",
+				"stock": 4
+			},
+			{
+				"name": "S",
+				"stock": 2
+			},
+			{
+				"name": "M",
+				"stock": 5
+			},
+			{
+				"name": "L",
+				"stock": 1
+			},
+			{
+				"name": "XL",
+				"stock": 6
+			}
+		],
+		"limit": 2,
+		"imageUrls": ["https://assets.stickpng.com/images/580b57fbd9996e24bc43bf64.png"]
+	},
+	{
+		"name": "Blue Dress Shirt",
+		"price": 59.99,
+		"description": "A blue dress shirt for more formal ocassions.",
+		"sizes": [
+			{
+				"name": "XS",
+				"stock": 0
+			},
+			{
+				"name": "S",
+				"stock": 3
+			},
+			{
+				"name": "M",
+				"stock": 6
+			},
+			{
+				"name": "L",
+				"stock": 9
+			},
+			{
+				"name": "XL",
+				"stock": 9
+			}
+		],
+		"limit": 0,
+		"imageUrls": ["https://freepngimg.com/thumb/dress%20shirt/8-blue-dress-shirt-png-image.png"]
+	},
+	{
+		"name": "Grey T-Shirt",
+		"price": 19.99,
+		"description": "A flexible and comfortable grey tee, for everyday wear.",
+		"sizes": [
+			{
+				"name": "XS",
+				"stock": 5
+			},
+			{
+				"name": "S",
+				"stock": 1
+			},
+			{
+				"name": "M",
+				"stock": 7
+			},
+			{
+				"name": "L",
+				"stock": 0
+			},
+			{
+				"name": "XL",
+				"stock": 0
+			}
+		],
+		"limit": 3,
+		"imageUrls": ["https://pngimg.com/uploads/tshirt/tshirt_PNG5448.png"]
+	},
+	{
+		"name": "Black Socks",
+		"price": 5.99,
+		"description": "A pair of comfy black socks, for everyday wear.",
+		"sizes": [
+			{
+				"name": "XS",
+				"stock": 0
+			},
+			{
+				"name": "S",
+				"stock": 1
+			},
+			{
+				"name": "M",
+				"stock": 0
+			},
+			{
+				"name": "L",
+				"stock": 1
+			},
+			{
+				"name": "XL",
+				"stock": 0
+			}
+		],
+		"limit": 0,
+		"imageUrls": [
+			"https://purepng.com/public/uploads/large/purepng.com-socks-blacksockscovering-the-ankledesignblack-1421526399167ilebt.png"
+		]
+	},
+	{
+		"name": "Pink High-Heels",
+		"price": 69.99,
+		"description": "Hot pink high-heels, to make YOU the center of attention.",
+		"sizes": [
+			{
+				"name": "XS",
+				"stock": 0
+			},
+			{
+				"name": "S",
+				"stock": 0
+			},
+			{
+				"name": "M",
+				"stock": 2
+			},
+			{
+				"name": "L",
+				"stock": 9
+			},
+			{
+				"name": "XL",
+				"stock": 9
+			}
+		],
+		"limit": 1,
+		"imageUrls": [
+			"https://purepng.com/public/uploads/large/purepng.com-pink-women-shoewomen-shoesfootdesignfoot-wearwomenladiescasualleatherpink-1421526428123tgxwg.png"
+		]
+	},
+	{
+		"name": "Straw Hat",
+		"price": 63.99,
+		"description": "Join the staw hat crew with this stylish and protective hat.",
+		"sizes": [
+			{
+				"name": "XS",
+				"stock": 20
+			},
+			{
+				"name": "S",
+				"stock": 7
+			},
+			{
+				"name": "M",
+				"stock": 2
+			},
+			{
+				"name": "L",
+				"stock": 0
+			},
+			{
+				"name": "XL",
+				"stock": 0
+			}
+		],
+		"limit": 1,
+		"imageUrls": [
+			"https://purepng.com/public/uploads/large/purepng.com-hatuncategorizedhathat-fashion-cap-cowboy-object-631522326739xmvbf.png"
+		]
+	}
+]

@@ -36,8 +36,6 @@ const LifeguardScreen: React.FC<Props> = ({ navigation }) => {
 	const [numOfGuards, setNumOfGuards] = useState<number | null>(null);
 	const [timeToSwap, setTimeToSwap] = useState<number | null>(null);
 	const [startTime, setStartTime] = useState<string | null>('');
-	const [startHour] = useState<number | null>(null);
-	const [startMinute] = useState<number | null>(null);
 	const [amPm, setAmPm] = useState<string | null>(null);
 
 	const scheduleParams: ScheduleParams = {

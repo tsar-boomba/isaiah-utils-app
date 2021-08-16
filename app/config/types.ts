@@ -6,6 +6,19 @@ import {
 	RouteProp,
 } from '@react-navigation/native';
 
+//type for shop item data
+export type Item = {
+	name: string;
+	price: number;
+	description: string;
+	sizes: {
+		name: string;
+		stock: number;
+	}[];
+	limit: number;
+	imageUrls: string[];
+};
+
 export type StackParamsList = {
 	Home: undefined;
 	Lifeguard: undefined;
@@ -18,6 +31,8 @@ export type StackParamsList = {
 	};
 	TicTacToe: undefined;
 	Connect4: undefined;
+	Shop: undefined;
+	Item: Item;
 };
 
 export type HomeScreenNavigationProp = StackNavigationProp<StackParamsList, 'Home'>;
@@ -34,3 +49,27 @@ export type LifeguardResultsScreenRouteProp = RouteProp<StackParamsList, 'Lifegu
 export type TicTacToeScreenNavigationProp = StackNavigationProp<StackParamsList, 'TicTacToe'>;
 
 export type Connect4ScreenNavigationProp = StackNavigationProp<StackParamsList, 'Connect4'>;
+
+export type ShopNavigationProp = StackNavigationProp<StackParamsList, 'Shop'>;
+
+/*   Shop types    */
+export type ShopParamsList = {
+	ShopRoutes: NavigatorScreenParams<StackParamsList>;
+	Home: undefined;
+	Favorites: undefined;
+	Bag: undefined;
+};
+
+export type ShopHomeScreenNavigationProp = CompositeNavigationProp<
+	BottomTabNavigationProp<ShopParamsList, 'Home'>,
+	StackNavigationProp<StackParamsList>
+>;
+
+export type ShopBagScreenNavigationProp = CompositeNavigationProp<
+	BottomTabNavigationProp<ShopParamsList, 'Bag'>,
+	StackNavigationProp<StackParamsList>
+>;
+
+export type ItemScreenRouteProp = RouteProp<StackParamsList, 'Item'>;
+
+export type ItemScreenNavigationProp = StackNavigationProp<StackParamsList, 'Item'>;
