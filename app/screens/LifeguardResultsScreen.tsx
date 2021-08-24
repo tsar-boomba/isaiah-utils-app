@@ -1,5 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { ActivityIndicator, ScrollView, StatusBar, StyleSheet } from 'react-native';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { StatusBar, StyleSheet, View, Platform } from 'react-native';
+import { PanGestureHandler } from 'react-native-gesture-handler';
+import Animated, {
+	interpolate,
+	useAnimatedGestureHandler,
+	useAnimatedScrollHandler,
+	useAnimatedStyle,
+	useSharedValue,
+	withDecay,
+} from 'react-native-reanimated';
 
 import ThemeContext, { colors } from '../context/theme-context';
 import SwapCard from '../components/SwapCard';
@@ -17,8 +26,10 @@ type Props = {
 type StateType = number | string | null;
 
 const LifeguardResultsScreen: React.FC<Props> = ({ route, navigation }) => {
+	const CARD_HEIGHT = 63;
 	const { dark } = useContext(ThemeContext);
 	const { numOfGuards, timeToSwap, startHour, startMinute, amPm } = route.params;
+	const [containerHeight, setContainerHeight] = useState(0);
 
 	const timeFormatter = (hour: StateType, minute: StateType, amPm: StateType) => {
 		let strHour = JSON.stringify(hour);
@@ -81,14 +92,49 @@ const LifeguardResultsScreen: React.FC<Props> = ({ route, navigation }) => {
 
 	const cardData = generateSchedule();
 
+	const translateY = useSharedValue(0);
+	const scrollHandler = useAnimatedScrollHandler({
+		onScroll: (event, ctx) => {
+			translateY.value = event.contentOffset.y;
+		},
+	});
+
 	return (
-		<ScrollView
+		<View
 			style={[styles.container, { backgroundColor: dark ? colors.dark : colors.light }]}
+			onLayout={({
+				nativeEvent: {
+					layout: { height: h },
+				},
+			}) => setContainerHeight(h)}
 		>
-			{cardData.map((card, index) => (
-				<SwapCard time={card.time} guardNum={card.guardNum} key={index} />
-			))}
-		</ScrollView>
+			<Animated.ScrollView
+				style={[styles.scroll]}
+				onScroll={scrollHandler}
+				scrollEventThrottle={8}
+			>
+				{cardData.map((card, index) => {
+					const style = useAnimatedStyle(() => {
+						const scale = interpolate(
+							translateY.value,
+							[-1, 0, CARD_HEIGHT * index, CARD_HEIGHT * (index + 3)],
+							[1, 1, 1, 0]
+						);
+						return {
+							transform: [{ scale }],
+						};
+					});
+					return (
+						<SwapCard
+							animationStyle={style}
+							time={card.time}
+							guardNum={card.guardNum}
+							key={index}
+						/>
+					);
+				})}
+			</Animated.ScrollView>
+		</View>
 	);
 };
 
@@ -96,7 +142,9 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		top: StatusBar.currentHeight,
-		marginBottom: 55,
+	},
+	scroll: {
+		marginBottom: Platform.OS == 'ios' ? null : 45,
 	},
 });
 

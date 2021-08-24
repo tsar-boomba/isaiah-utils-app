@@ -1,33 +1,36 @@
 {
-	"expo": {
-		"name": "isaiah-utils-app",
-		"slug": "isaiah-utils-app",
-		"version": "1.0.0",
-		"orientation": "portrait",
-		"icon": "./app/assets/icon.png",
-		"splash": {
-			"image": "./app/assets/splash.png",
-			"resizeMode": "contain",
-			"backgroundColor": "#ffffff"
-		},
-		"updates": {
-			"fallbackToCacheTimeout": 0
-		},
-		"assetBundlePatterns": ["**/*"],
-		"ios": {
-			"supportsTablet": true,
-			"bundleIdentifier": "com.tsar-boomba.boomba-utils",
-			"buildNumber": "0.1.0"
-		},
-		"android": {
-			"adaptiveIcon": {
-				"foregroundImage": "./app/assets/adaptive-icon.png",
-				"backgroundColor": "#FFFFFF"
-			},
-			"package": "com.tsarboomba.isaiahutilsapp"
-		},
-		"web": {
-			"favicon": "./app/assets/favicon.png"
-		}
-	}
+  "expo": {
+    "name": "isaiah-utils-app",
+    "slug": "isaiah-utils-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./app/assets/icon.png",
+    "splash": {
+      "image": "./app/assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tsar-boomba.boomba-utils",
+      "buildNumber": "0.1.0"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./app/assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.tsarboomba.isaiahutilsapp"
+    },
+    "web": {
+      "favicon": "./app/assets/favicon.png"
+    },
+    "description": "working lifeguard scheduler, tic tac toe, and connect 4 circles, mostly working shop example"
+  }
 }

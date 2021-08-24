@@ -1,25 +1,28 @@
 import React, { useContext } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
+import Animated from 'react-native-reanimated';
 
 import ThemeContext, { colors } from '../context/theme-context';
 
 interface Props {
+	animationStyle: { transform: { scale: number }[] };
 	time: string;
 	name?: string;
 	guardNum: number;
 }
 
-const SwapCard: React.FC<Props> = ({ time, name, guardNum }) => {
+const SwapCard: React.FC<Props> = ({ animationStyle, time, name, guardNum }) => {
 	const { dark } = useContext(ThemeContext);
 
 	return (
-		<View
+		<Animated.View
 			style={[
 				styles.card,
 				{
 					borderColor: dark ? colors.light : colors.dark,
 					backgroundColor: dark ? colors.dark : colors.light,
 				},
+				animationStyle,
 			]}
 		>
 			<Text
@@ -42,7 +45,7 @@ const SwapCard: React.FC<Props> = ({ time, name, guardNum }) => {
 			>
 				Guard {guardNum}
 			</Text>
-		</View>
+		</Animated.View>
 	);
 };
 

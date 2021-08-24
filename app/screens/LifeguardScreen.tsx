@@ -47,6 +47,37 @@ const LifeguardScreen: React.FC<Props> = ({ navigation }) => {
 		amPm: amPm,
 	};
 
+	const sampleRes = {
+		batchcomplete: '',
+		continue: {
+			grncontinue: '0.041989886399|0.041990203076|49556188|0',
+			continue: 'grncontinue||',
+		},
+		query: {
+			pages: {
+				32960115: {
+					pageid: 32960115,
+					ns: 0,
+					title: "Journal de l'\u00eele de La R\u00e9union",
+					extract:
+						"Journal de l'\u00eele de La R\u00e9union is a daily, French-language newspaper published in R\u00e9union, a French overseas department. The newspaper, which was founded in 1951 is headquartered in Saint-Denis, R\u00e9union, is owned by Groupe Hersant M\u00e9dia. There are four competing newspapers in R\u00e9union.",
+					thumbnail: {
+						source: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Centre-d%27affaires-Cadjee.jpg/50px-Centre-d%27affaires-Cadjee.jpg',
+						width: 50,
+						height: 33,
+					},
+					original: {
+						source: 'https://upload.wikimedia.org/wikipedia/commons/9/9c/Centre-d%27affaires-Cadjee.jpg',
+						width: 3888,
+						height: 2592,
+					},
+					pageimage: "Centre-d'affaires-Cadjee.jpg",
+				},
+			},
+		},
+	};
+	const currPage = Object.keys(sampleRes.query.pages)[0];
+
 	const timeInputFormat = (value: string) => {
 		const currentValue = value.length ? value.substring(value.length - 1, value.length) : value;
 		const parsedInput = Number.parseInt(currentValue);
