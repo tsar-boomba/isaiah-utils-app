@@ -1,6 +1,6 @@
 # isaiah-utils-app
 
-An application with various games, prototypes, and utitlies. It was developed using a virtual Android device and may have some problems on IOS devices. Try it [exp://exp.host/@tsar-boomba/isaiah-utils-app]here with the Expo Go app
+An application with various games, prototypes, and utitlies. It was developed using a virtual Android device and may have some problems on IOS devices. Try it https://expo.dev/@tsar-boomba/isaiah-utils-app here with the Expo Go app
 
 ## Lifeguard
 
